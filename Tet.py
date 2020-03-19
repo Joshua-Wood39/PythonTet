@@ -52,3 +52,46 @@ def create_grid(locked_pos={}):   # *
 
 def convert_shape_format():
     pass
+
+
+def valid_space():
+    pass
+
+
+def check_lost():
+    pass
+
+
+def get_shape():  # *
+    pass
+
+
+def draw_text_middle():
+    pass
+
+
+def draw_grid():   # *
+    pass
+
+
+def clear_rows():
+    pass
+
+
+def draw_next_shape():
+    pass
+
+
+def draw_window():   # *
+    pass
+
+
+def main():   # *
+    pass
+
+
+def main_menu():   # *
+    pass
+
+
+main_menu()
