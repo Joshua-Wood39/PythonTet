@@ -141,6 +141,8 @@ def draw_next_shape(shape, surface):
                 pygame.draw.rect(surface, shape.color,
                                  (sx + j * block_size, sy + i * block_size), 0)
 
+    surface.blit(label, (sx + 10, sy - 30))
+
 
 def draw_window(surface, grid):   # *
     surface.fill((0, 0, 0))
