@@ -122,8 +122,26 @@ def draw_grid(surface, grid):
                                                         block_size, sy), (sx + j * block_size, sy + play_height))
 
 
-def clear_rows():
-    pass
+def clear_rows(grid, locked):
+
+    inc = 0
+    for i in range(len(grid)-1, -1, -1):
+        row = grid[i]
+        if (0, 0, 0) not in row:
+            inc += 1
+            ind = i
+            for j in range(len(row)):
+                try:
+                    del locked[(j, i)]
+                except:
+                    continue
+
+    if inc > 0:
+        for key in sorted(list(locked), key=lambda x: x[1])[::-1]:
+            x, y = key
+            if y < ind:
+                newKey = (x, y + inc)
+                locked[newKey] = locked.pop(key)
 
 
 def draw_next_shape(shape, surface):
@@ -163,7 +181,6 @@ def draw_window(surface, grid):   # *
                                             top_left_y, play_width, play_height), 5)
 
     draw_grid(surface, grid)
-    pygame.display.update()
 
 
 def main(win):   # *
@@ -227,8 +244,11 @@ def main(win):   # *
             current_piece = next_piece
             next_piece = get_shape()
             change_piece = False
+            clear_rows(grid, locked_positions)
 
         draw_window(win, grid)
+        draw_next_shape(next_piece, win)
+        pygame.display.update()
 
         if check_lost(locked_positions):
             run = False
