@@ -110,8 +110,8 @@ def draw_text_middle(surface, text, size, color):
     font = pygame.font.SysFont("comicsans", size, bold=True)
     label = font.render(text, 1, color)
 
-    surface.blit(label, (top_left_x + play_width/2 - (label.get_width() /
-                                                      2, top_left_y + play_height/2 - (label.get_height()/2))))
+    surface.blit(label, ((top_left_x + play_width/2 - (label.get_width() / 2)),
+                         (top_left_y + play_height/2 - (label.get_height()/2))))
 
 
 def draw_grid(surface, grid):
@@ -162,8 +162,8 @@ def draw_next_shape(shape, surface):
         row = list(line)
         for j, column in enumerate(row):
             if column == '0':
-                pygame.draw.rect(surface, shape.color,
-                                 (sx + j * block_size, sy + i * block_size), 0)
+                pygame.draw.rect(surface, shape.color, (sx+j*block_size,
+                                                        sy+i*block_size, block_size, block_size), 0)
 
     surface.blit(label, (sx + 10, sy - 30))
 
@@ -171,7 +171,7 @@ def draw_next_shape(shape, surface):
 def update_score(nscore):
     score = max_score()
 
-    with open('scores.txt', 'w') as f:
+    with open('/Users/rayfairley/Green/PythonTet/scores.txt', 'w') as f:
         if int(score) > nscore:
             f.write(str(score))
         else:
@@ -179,7 +179,7 @@ def update_score(nscore):
 
 
 def max_score():
-    with open('scores.txt', 'r') as f:
+    with open('/Users/rayfairley/Green/PythonTet/scores.txt', 'r') as f:
         lines = f.readlines()
         score = lines[0].strip()
 
