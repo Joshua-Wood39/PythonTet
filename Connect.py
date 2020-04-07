@@ -1,4 +1,6 @@
 import numpy as np
+import pygame
+
 
 ROW_COUNT = 6
 COLUMN_COUNT = 7
@@ -57,6 +59,18 @@ board = create_board()
 print_board(board)
 game_over = False
 turn = 0
+
+pygame.init()
+
+SQUARESIZE = 100
+
+width = COLUMN_COUNT * SQUARESIZE
+height = (ROW_COUNT + 1) * SQUARESIZE
+
+size = (width, height)
+
+screen = pygame.display.set_mode(size)
+
 
 while not game_over:
     # Ask for Player 1 input
