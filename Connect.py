@@ -1,9 +1,11 @@
 import numpy as np
 import pygame as pg
 import sys
+import math
 
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
+RED = (255, 0, 0)
 
 ROW_COUNT = 6
 COLUMN_COUNT = 7
@@ -63,8 +65,12 @@ def draw_board(board):
         for r in range(ROW_COUNT):
             pg.draw.rect(screen, BLUE, (c * SQUARESIZE, r *
                                         SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
-            pg.draw.circle(screen, BLACK, (int(c * SQUARESIZE + SQUARESIZE / 2),
-                                           int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+            if board[r][c] == 0:
+                pg.draw.circle(screen, BLACK, (int(c * SQUARESIZE + SQUARESIZE / 2),
+                                               int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+            elif board[r][c] == 1:
+                pg.draw.circle(screen, RED, (int(c * SQUARESIZE + SQUARESIZE / 2),
+                                             int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
 
 
 board = create_board()
@@ -98,7 +104,8 @@ while not game_over:
 
             # Ask for Player 1 input
             if turn == 0:
-                col = int(input("Player 1 Make Your Selection (0-6):"))
+                posx = event.pos[0]
+                col = int(math.floor(posx/SQUARESIZE))
 
                 if is_valid_location(board, col):
                     row = get_next_open_row(board, col)
@@ -110,7 +117,8 @@ while not game_over:
 
             # Ask for Player 2 input
             else:
-                col = int(input("Player 2 Make Your Selection (0-6):"))
+                posx = event.pos[0]
+                col = int(math.floor(posx/SQUARESIZE))
 
                 if is_valid_location(board, col):
                     row = get_next_open_row(board, col)
