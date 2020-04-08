@@ -99,6 +99,8 @@ screen = pg.display.set_mode(size)
 draw_board(board)
 pg.display.update()
 
+myfont = pg.font.SysFont("monospace", 75)
+
 
 while not game_over:
 
@@ -106,7 +108,20 @@ while not game_over:
         if event.type == pg.QUIT:
             sys.exit()
 
+        if event.type == pg.MOUSEMOTION:
+            pg.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
+            posx = event.pos[0]
+            if turn == 0:
+                pg.draw.circle(
+                    screen, RED, (posx, int(SQUARESIZE/2)), RADIUS)
+            else:
+                pg.draw.circle(
+                    screen, YELLOW, (posx, int(SQUARESIZE/2)), RADIUS)
+
+        pg.display.update()
+
         if event.type == pg.MOUSEBUTTONDOWN:
+            pg.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
 
             # Ask for Player 1 input
             if turn == 0:
@@ -118,7 +133,8 @@ while not game_over:
                     drop_piece(board, row, col, 1)
 
                     if winning_move(board, 1):
-                        print("PLAYER 1 IS THE WINNER!!")
+                        label = myfont.render("Player 1 wins!!", 1, RED)
+                        screen.blit(label, (170, 10))
                         game_over = True
 
             # Ask for Player 2 input
@@ -131,10 +147,14 @@ while not game_over:
                     drop_piece(board, row, col, 2)
 
                     if winning_move(board, 2):
-                        print("PLAYER 2 IS THE WINNER!!")
+                        label = myfont.render("Player 2 wins!!", 2, YELLOW)
+                        screen.blit(label, (170, 10))
                         game_over = True
 
             turn += 1
             turn = turn % 2
             print_board(board)
             draw_board(board)
+
+            if game_over:
+                pg.time.wait(4000)
