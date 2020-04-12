@@ -19,7 +19,18 @@ print("Waiting for connection, Server Started")
 
 
 def threaded_client(conn):
-    pass
+
+    reply = ""
+    while True:
+        try:
+            data = conn.recv(2048)  # bits
+            reply = data.decode("utf-8")
+
+            if not data:
+                print("Disconnected")
+                break
+            else:
+                print("Received: ", reply)
 
 
 while True:
