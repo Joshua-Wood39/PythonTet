@@ -86,7 +86,7 @@ def redraw_window(win, game, p):
 
 
 btns = [Button("Rock", 50, 500, (0, 0, 0)), Button(
-    "Paper", 250, 500, (255, 255, 255)), Button("Scissors", 450, 500, (145, 145, 145))]
+    "Paper", 250, 500, (255, 0, 0)), Button("Scissors", 450, 500, (145, 145, 145))]
 
 
 def main():
